@@ -1,12 +1,78 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        {% block stylesheets %}
+
+            <!-- Site Icons -->
+            <link rel="shortcut icon" href="{{ asset('image/template/favicon.ico') }}" type="image/x-icon">
+            <link rel="apple-touch-icon" href="{{ asset('image/template/apple-touch-icon.png') }}">
+
+            <!-- Bootstrap CSS -->
+            <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+            <!-- Site CSS -->
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+            <!-- Responsive CSS -->
+            <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+            <!-- Custom CSS -->
+            <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+        {% endblock %}
     </head>
     <body>
+  {#  <nav class="navbar navbar-expand-lg  bg-light">
+        <img src="{{ asset('image/logo/logo_Caveau.jpg') }}">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Le Caveau <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Visites et dégustation</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Nos Vins
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Côtes du Jura</a>
+                        <a class="dropdown-item" href="#">L'Etoile Blanc</a>
+                        <a class="dropdown-item" href="#"> Crémants Du Jura</a>
+                        <a class="dropdown-item" href="#"> Nos Spécialités</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Nous Contacter</a>
+                </li>
+            </ul>
+        </div>
+    </nav>#}
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% include 'site_Front/parts/footer.html.twig' %}
+        {% block javascripts %}
+            <!-- ALL JS FILES -->
+            <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+            <script src="{{ asset('js/popper.min.js') }}"></script>
+            <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+            <!-- ALL PLUGINS -->
+            <script src="{{ asset('js/jquery.superslides.min.js') }}"></script>
+            <script src="{{ asset('js/bootstrap-select.js') }}"></script>
+            <script src="{{ asset('js/inewsticker.js') }}"></script>
+            <script src="{{ asset('js/bootsnav.js.') }}"></script>
+            <script src="{{ asset('js/images-loded.min.js') }}"></script>
+            <script src="{{ asset('js/isotope.min.js') }}"></script>
+            <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+            <script src="{{ asset('js/baguetteBox.min.js') }}"></script>
+            <script src="{{ asset('js/form-validator.min.js') }}"></script>
+            <script src="{{ asset('js/contact-form-script.js') }}"></script>
+            <script src="{{ asset('js/custom.js') }}"></script>
+        {% endblock %}
     </body>
 </html>
