@@ -1,0 +1,160 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <!-- Start Shop Detail  -->
+    <div class="shop-detail-box-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-5 col-lg-5 col-md-6">
+                    <img class="d-block w-100" src="{{ asset('image/produit/'~produit.image~'.jpg') }}" alt="image du produit">
+                </div>
+                <div class="col-xl-7 col-lg-7 col-md-6">
+                    <div class="single-product-details">
+                        <h2>{{ produit.nom }}</h2>
+                        <h5> <del>{{produit.prix |number_format(2, ',', '.')}} €</del> $40.79</h5>
+                        <p class="available-stock"><span> More than 20 available / <a href="#">8 sold </a></span>
+                        <p>
+                        <h4>Description:</h4>
+                        <p>{{ produit.description}}</p>
+                        <ul>
+                            <li>
+                                <div class="form-group quantity-box">
+                                    <label class="control-label">Quantity</label>
+                                    <input class="form-control" value="0" min="0" max="20" type="number">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="price-box-bar">
+                                    <div class="cart-and-bay-btn">
+                                        <a class="btn hvr-hover my-3" data-fancybox-close="" href="#">Payer maintenant</a>
+                                        <a class="btn hvr-hover my-3" data-fancybox-close="" href="#">Ajouter au panier</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+
+
+
+                        <div class="add-to-btn">
+                            <div class="add-comp">
+                                <a class="btn hvr-hover" href="#"><i class="fas fa-heart"></i> Ajouter aux favories</a>
+                                <a class="btn hvr-hover" href="#"><i class="fas fa-sync-alt"></i> Comparer le produit</a>
+                            </div>
+                            <div class="share-bar">
+                                <a class="btn hvr-hover" href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                                <a class="btn hvr-hover" href="#"><i class="fab fa-google-plus" aria-hidden="true"></i></a>
+                                <a class="btn hvr-hover" href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                                <a class="btn hvr-hover" href="#"><i class="fab fa-pinterest-p" aria-hidden="true"></i></a>
+                                <a class="btn hvr-hover" href="#"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="row">
+                    <h2 class="mx-auto my-5">Fiche Technique</h2>
+                    <table class="table table-striped w-100 table-bordered">
+                        <tbody>
+                        {% if produit.annee %}
+                            <tr>
+                                <th scope="row"> Année</th>
+                                <td> {{ produit.annee }}</td>
+                            </tr>
+                        {% endif %}
+                        {% if produit.cepage %}
+                            <tr>
+                                <th scope="row"> Cépage</th>
+                                <td> {{ produit.cepage }}</td>
+                            </tr>
+                        {% endif %}
+                        {% if produit.ExpositionSoleil %}
+                            <tr>
+                                <th scope="row"> Exposition de la vigne au soleil</th>
+                                <td> {{ produit.ExpositionSoleil }}</td>
+                            </tr>
+                        {% endif %}
+                        {% if produit.MethodesVendanges %}
+                            <tr>
+                                <th scope="row"> Méthodes de vendanges</th>
+                                <td> {{ produit.MethodesVendanges }}</td>
+                            </tr>
+                        {% endif %}
+                        {% if produit.Veillissement%}
+                            <tr>
+                                <th scope="row"> Veillissement</th>
+                                <td> {{ produit.Veillissement }}</td>
+                            </tr>
+                        {% endif %}
+                        {% if produit.Vinification %}
+                            <tr>
+                                <th scope="row"> Vinification</th>
+                                <td> {{ produit.Vinification }}</td>
+                            </tr>
+                        {% endif %}
+                        {% if produit.Caracteristique %}
+                            <tr>
+                                <th scope="row"> Caractéristique</th>
+                                <td> {{ produit.Caracteristique }}</td>
+                            </tr>
+                        {% endif %}
+                        {% if produit.ConseilDegustation %}
+                            <tr>
+                                <th scope="row"> Conseil de dégustation</th>
+                                <td> {{ produit.ConseilDegustation }}</td>
+                            </tr>
+                        {% endif %}
+                        {% if produit.VolumeEnCl %}
+                            <tr>
+                                <th scope="row"> Volume en CL</th>
+                                <td> {{ produit.VolumeEnCl }}</td>
+                            </tr>
+                        {% endif %}
+                        {% if produit.Degre %}
+                            <tr>
+                                <th scope="row"> Degré d'alcool</th>
+                                <td> {{ produit.Degre }} % Vol.</td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+
+            <div class="row my-5">
+                <div class="col-lg-12">
+                    <div class="title-all text-center">
+                        <h2>Nos autres Produits</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet lacus enim.</p>
+                    </div>
+                    <div class="featured-products-box owl-carousel owl-theme">
+                        {% for allProduit in allProduits %}
+                        <div class="item">
+                            <div class="products-single fix">
+                                <div class="box-img-hover">
+                                    <img src="{{ asset('image/produit/'~allProduit.image~'.jpg') }}" class="img-fluid" alt="Image">
+                                    <div class="mask-icon">
+                                        <ul>
+                                            <li><a href="{{ path('produitDetail', {'produit': allProduit.id, 'categorie':allProduit.categorie.id}) }}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
+                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                        </ul>
+                                        <a class="cart" href="#">Ajouter au panier</a>
+                                    </div>
+                                </div>
+                                <div class="why-text">
+                                    <h4>{{ allProduit.nom }}</h4>
+                                    <h5> {{ allProduit.prix |number_format(2, ',', '.')}} €</h5>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- End Cart -->
+{%  endblock %}

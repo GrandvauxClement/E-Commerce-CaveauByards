@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <!-- Start All Title Box -->
+    <div class="all-title-box" style="background: url('{{ asset('image/banniere/Caveau-Byard-entete-present.jpg') }}') no-repeat center ;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>PRÉSENTATION</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">PRÉSENTATION</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End All Title Box -->
+
+    <!-- Start About Page  -->
+    <div class="about-box-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2 class="noo-sh-title">Qui sommes-nous ? </h2>
+                    <p>Le caveau des byards est une coopérative regroupant pas moins d'une vingtaine de vigneron locaux ainsi que 3 cavistes et 2 secrétaires.</p>
+                    <h2 class="noo-sh-title"> Quelques dates importantes</h2>
+                    <ul>
+                        <li><span> 1953: </span> Date de création du Caveau des Byards</li>
+                        <li><span> 1957 à 1960: </span> Constructions des batiments</li>
+                        <li><span> 1998: </span>  Construction d’un nouveau chai de vinification.<br>
+                            Investissement dans une nouvelle chaîne de lavage, étiquetage et encartonnage des bouteilles.</li>
+                        <li><span> 2003: </span> Réfection des bureaux et aménagement du local d’accueil et de dégustations.</li>
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <div class="banner-frame"> <img class="img-thumbnail img-fluid" src="{{ asset('image/caveau/vue_exterieur.jpg') }}" alt="Vue exterieur caveau des byards" />
+                    </div>
+                </div>
+            </div>
+            <div class="row my-5">
+                <div class="col-lg-6">
+                    <div class="banner-frame"> <img class="img-thumbnail img-fluid" src="{{ asset('image/caveau/vue_inte_accueil.jpg') }}" alt="Vue de l accueil caveau des byards" />
+                    </div>
+                </div>
+                <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center">
+                    <h2 class="noo-sh-title"> Quelques Chiffres </h2>
+                    <ul>
+                        <li>80% de vin blanc / 20% de vin rouge</li>
+                        <li>42 hectars de vignes</li>
+                        <li>17 Vignerons adhérants et 4 salariés</li>
+                        <li>257 000 bouteilles commercialisées</li>
+                        <li>1645 hls : capacité des caves de vieillissement en fûts de chêne</li>
+                        <li>3500 hls : capacité des chais de vinification</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row my-5 fond-violet">
+                <h2 class="text-center noo-sh-title">CREMANTS DU JURA - VIN BLANCS - VIN ROUGES - MACVIN - VIN DE PAILLE - VIN JAUNE</h2>
+                <div class="col-lg-6">
+                    <div class="banner-frame"> <img class="img-fluid" src="{{ asset('image/caveau/triple-bouteille.png') }}" alt="Vue de 3 bouteilles" />
+                    </div>
+                </div>
+                <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center">
+                    <ul>
+                        <li>Pour les Crémants du Jura, la mise en bouteilles intervient au printemps suivant la récolte afin de laisser au vin le temps de terminer ses fermentations.</li>
+                        <li>Les « vins de base » conservent alors toute leur finesse, leur légèreté et leur fruité.</li>
+                        <li>Les vins de garde au contraire, demandent un vieillissement de plusieurs mois, voire de plusieurs années en fûts de chêne.</li>
+                        <li>Ce temps de « mûrissement » est nécessaire afin que les vins développent tous leurs arômes, arrondissent leurs tanins et harmonisent les nombreux éléments qui les composent.</li>
+                        <li>Le vin jaune est élevé pendant six ans en fûts de chêne afin d’acquérir son goût de noix si caractéristique.</li>
+                        <li>3500 hls : capacité des chais de vinification</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End About Page -->
+{% endblock %}

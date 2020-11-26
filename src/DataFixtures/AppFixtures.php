@@ -13,18 +13,22 @@ class AppFixtures extends Fixture
     {
         $categorieUn = new Categorie();
         $categorieUn->setNom('côtes du jura');
+        $categorieUn->setImage('cotes-du-jura');
         $manager->persist($categorieUn);
         $manager->flush();
         $categorieDeux = new Categorie();
         $categorieDeux->setNom('l\'etoile blanc');
+        $categorieDeux->setImage('etoile-blanc');
         $manager->persist($categorieDeux);
         $manager->flush();
         $categorieTrois = new Categorie();
         $categorieTrois->setNom('crémants du jura');
+        $categorieTrois->setImage('cremants-du-jura');
         $manager->persist($categorieTrois);
         $manager->flush();
         $categorieQuatre = new Categorie();
         $categorieQuatre->setNom('nos spécialités');
+        $categorieQuatre->setImage('nos-specialtes');
         $manager->persist($categorieQuatre);
         $manager->flush();
 

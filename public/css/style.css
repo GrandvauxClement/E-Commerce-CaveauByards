@@ -1335,7 +1335,7 @@
 }
 /*------------------------------------------------------------------ All Pages -------------------------------------------------------------------*/
  .all-title-box{
-     background: url("../images/all-bg-title.jpg") no-repeat center center;
+     background: url("../image/template/all-bg-title.jpg") no-repeat center center;
      -webkit-background-size: cover;
      -moz-background-size: cover;
      -ms-background-size: cover;
@@ -2317,7 +2317,7 @@
      margin-bottom: 30px;
 }
  .single-product-details ul li{
-     width: 50%;
+     width: 33%;
      float: left;
      padding: 0px 15px;
 }
