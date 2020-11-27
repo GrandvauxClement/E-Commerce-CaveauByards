@@ -30,6 +30,14 @@ class Categorie
     private $produit;
 
     /**
+     * @param ArrayCollection $produit
+     */
+    public function setProduit(ArrayCollection $produit): void
+    {
+        $this->produit = $produit;
+    }
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $image;
@@ -96,5 +104,10 @@ class Categorie
         $this->image = $image;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->nom;
     }
 }

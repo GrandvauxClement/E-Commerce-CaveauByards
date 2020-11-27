@@ -2,15 +2,42 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Produit;
 use App\Entity\Categorie;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
+        $this->passwordEncoder =$passwordEncoder;
+    }
+
+    public function load(ObjectManager $manager )
+    {
+        // Création d'un utilisateur Admin
+        $admin = new User();
+        $admin->setNom('admin');
+        $admin->setPrenom('admin');
+        $admin->setRoles(['ROLE_ADMIN']);
+        $admin->setEmail('admin@admin.com');
+        $admin->setPassword(
+            $this->passwordEncoder->encodePassword(
+                $admin,
+                'Admin123'
+            )
+        );
+        $admin->setCodePostal('39210');
+        $admin->setAdresse('admin');
+        $admin->setVille('Le Vernois');
+        $admin->setIsVerified(true);
+        $manager->persist($admin);
+        $manager->flush();
+
+        // Definition de mes catégories
         $categorieUn = new Categorie();
         $categorieUn->setNom('côtes du jura');
         $categorieUn->setImage('cotes-du-jura');
