@@ -22,7 +22,7 @@ class DashboardController extends AbstractController
         return $this->render('site_Front/home.html.twig', [
             'controller_name' => 'DashboardController',
             'produits'=> $produit,
-            'categories'=>$Allcategories
+            'categories'=>$Allcategories,
         ]);
     }
 
@@ -33,7 +33,7 @@ class DashboardController extends AbstractController
     {
         $Allcategories = $categorieRepository->findAll();
         return $this->render('site_Front/contact.html.twig', [
-            'categories'=>$Allcategories
+            'categories'=>$Allcategories,
         ]);
     }
 
@@ -44,7 +44,7 @@ class DashboardController extends AbstractController
     {
         $Allcategories = $categorieRepository->findAll();
         return $this->render('site_Front/presentation.html.twig', [
-            'categories'=>$Allcategories
+            'categories'=>$Allcategories,
         ]);
     }
 
@@ -59,7 +59,7 @@ class DashboardController extends AbstractController
             'controller_name' => 'DashboardController',
             'produits'=> $produit,
             'categories'=>$Allcategories,
-            'categorieActive'=>$categorie
+            'categorieActive'=>$categorie,
         ]);
     }
 
@@ -73,7 +73,7 @@ class DashboardController extends AbstractController
         return $this->render('site_Front/detailProduit.html.twig', [
             'allProduits' => $allProduit,
             'produit'=> $produit,
-            'categories'=>$Allcategories
+            'categories'=>$Allcategories,
         ]);
     }
 

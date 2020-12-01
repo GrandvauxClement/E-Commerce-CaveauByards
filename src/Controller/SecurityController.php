@@ -15,9 +15,14 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils, CategorieRepository $categorieRepository): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+        if ($this->getUser()){
+            if ($this->getUser()->getRoles()[0] == 'ROLE_ADMIN') {
+                 return $this->redirectToRoute('admin');
+             }
+            else {
+                return $this->redirectToRoute('dashboard');
+            }
+         }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -28,7 +33,7 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
-            'categories'=>$Allcategories
+            'categories'=>$Allcategories,
             ]);
     }
 

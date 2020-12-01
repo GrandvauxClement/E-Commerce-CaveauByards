@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <!-- Start All Title Box -->
+    <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Mon Compte</h2>
+                    {#<ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item active">Mon Compte</li>
+                    </ul>#}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End All Title Box -->
+
+    <!-- Start My Account  -->
+    <div class="my-account-box-main">
+        <div class="container">
+            <h2 class="color-violet text-center">Bienvenue, {{ app.user.nom }} {{ app.user.prenom }}, ici vous pouvez gérer vos informations personnelles</h2>
+            <div class="my-account-page">
+                <div class="row">
+                    <div class="col-lg-4 col-md-12">
+                        <div class="account-box">
+                            <div class="service-box">
+                                <div class="service-icon">
+                                    <a href="#"> <i class="fa fa-gift"></i> </a>
+                                </div>
+                                <div class="service-desc">
+                                    <h4>Vos commandes </h4>
+                                    <p> Suivre, retourner ou acheter à nouveau des articles </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="account-box">
+                            <div class="service-box">
+                                <div class="service-icon">
+                                    <a href="{{path('mes_infos_perso')}}"><i class="fa fa-lock"></i> </a>
+                                </div>
+                                <div class="service-desc">
+                                    <h4>Connexion &amp; Sécurité</h4>
+                                    <p>Modifier vos informations de connexion et personnelle</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="account-box">
+                            <div class="service-box">
+                                <div class="service-icon">
+                                    <a href="#"> <i class="fa fa-location-arrow"></i> </a>
+                                </div>
+                                <div class="service-desc">
+                                    <h4>Vos Adresse</h4>
+                                    <p>Modifier vos adresse pour vos commandes</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="account-box">
+                            <div class="service-box">
+                                <div class="service-icon">
+                                    <a href="#"> <i class="fa fa-credit-card"></i> </a>
+                                </div>
+                                <div class="service-desc">
+                                    <h4>Option de paiement</h4>
+                                    <p>Éditer ou ajouter vos méthodes de paiement</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </div>
+
+    <!-- End My Account -->
+
+{% endblock %}

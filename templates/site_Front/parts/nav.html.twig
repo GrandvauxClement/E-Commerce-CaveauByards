@@ -42,12 +42,16 @@
                     </select>
                 </div>
                 <div class="right-phone-box">
-                    <p>Telephone :- <a href="#"> 03 84 25 37 29</a></p>
+                    <p>Telephone : <a href="#"> 03 84 25 37 29</a></p>
                 </div>
                 <div class="our-link">
                     <ul>
-                        <li><a href="#">Mon compte</a></li>
-                        <li><a href="{{ path('contact') }}">Contactez-nous</a></li>
+                        {% if app.user %}
+                            <li><a href="{{path('mon_compte')}}"><i class="fas fa-user text-light"></i> Bonjour {{ app.user.nom|upper  }} {{ app.user.prenom }} </a></li>
+                            <li><a href="{{ path('app_logout') }}"><i class="fas fa-lock-open text-light"></i> DÉCONNEXION</a></li>
+                        {% else %}
+                            <li><a href="{{path('app_login')}}"><i class="fas fa-user-lock "> </i> CONNEXION </a> </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
@@ -89,7 +93,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="cart.html">Panier</a></li>
                             <li><a href="checkout.html">Commander</a></li>
-                            <li><a href="my-account.html">Mon Compte</a></li>
+                            <li><a href="{{path('app_login')}}">Mon Compte</a></li>
                             <li><a href="wishlist.html">Favorie</a></li>
                         </ul>
                     </li>
@@ -101,7 +105,6 @@
             <!-- Start Atribute Navigation -->
             <div class="attr-nav">
                 <ul>
-                    <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
                     <li class="side-menu"><a href="#">
                             <i class="fa fa-shopping-bag"></i>
                             <span class="badge">3</span>
@@ -142,15 +145,3 @@
     <!-- End Navigation -->
 </header>
 <!-- End Main Top -->
-
-<!-- Start Top Search -->
-<div class="top-search">
-    <div class="container">
-        <div class="input-group">
-            <span class="input-group-addon"><i class="fa fa-search"></i></span>
-            <input type="text" class="form-control" placeholder="Search">
-            <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
-        </div>
-    </div>
-</div>
-<!-- End Top Search -->

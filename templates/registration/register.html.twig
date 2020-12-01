@@ -1,21 +1,98 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Register{% endblock %}
+{#{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        jQuery(document).ready(function() {
+            $('.js-datepicker').datepicker();
+        });
+    </script>
+{% endblock %}#}
 
 {% block body %}
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
+    <div class="container">
+        <h2 class="text-center color-violet">Créer Votre compte</h2>
 
-    <h1>Register</h1>
+       {# {{ form_start(registrationForm) }}
+        <div class="my-custom-class-for-errors">
+            {{ form_errors(registrationForm) }}
+        </div>
+        <div class="row justify-content-around">
+            {{ form_row(registrationForm.email) }}
+            {{ form_row(registrationForm.plainPassword, {
+                label: 'Password'
+            }) }}
+        </div>
+        <div class="row justify-content-around">
+            <div class="col form-control">
+                {{ form_label(registrationForm.civilite) }}
+                {{ form_widget(registrationForm.civilite) }}
+                <small>{{ form_help(registrationForm.civilite) }}</small>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+                <div class="form-error">
+                    {{ form_errors(registrationForm.civilite) }}
+                </div>
+            </div>
+            <div class="col form-control">
+                {{ form_label(registrationForm.nom )}}
+                {{ form_widget(registrationForm.nom) }}
+                <small>{{ form_help(registrationForm.nom) }}</small>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+                <div class="form-error">
+                    {{ form_errors(registrationForm.nom) }}
+                </div>
+            </div>
+            <div class="col form-control">
+                {{ form_label(registrationForm.prenom )}}
+                {{ form_widget(registrationForm.prenom) }}
+                <small>{{ form_help(registrationForm.prenom) }}</small>
+                <div class="form-error">
+                    {{ form_errors(registrationForm.prenom) }}
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-around">
+            <div class="col">
+                {{ form_label(registrationForm.adresse) }}
+                {{ form_widget(registrationForm.adresse) }}
+            </div>
+            <div class="col">
+                {{ form_label(registrationForm.codePostal) }}
+                {{ form_widget(registrationForm.codePostal) }}
+            </div>
+            <div class="col">
+                {{ form_label(registrationForm.ville) }}
+                {{ form_widget(registrationForm.ville) }}
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-3 d-flex">
+                {{ form_label(registrationForm.dateNaissance) }}
+                {{ form_widget(registrationForm.dateNaissance) }}
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-3">
+                {{ form_row(registrationForm.agreeTerms) }}
+            </div>
+        </div>
+            <button type="submit" class="btn btn-primary ml-auto">Créer votre compte </button>
+        {{ form_end(registrationForm) }}#}
+
+        {{ form_start(registrationForm) }}
+
+        {{ form_widget(registrationForm) }}
+
+        <button type="submit" class="btn btn-success">Créer</button>
+        {{ form_end(registrationForm) }}
+    </div>
 {% endblock %}
