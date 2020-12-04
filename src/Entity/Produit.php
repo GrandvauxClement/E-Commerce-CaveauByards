@@ -170,12 +170,7 @@ class Produit
     }
 
 
-    public function setCategorie(?Categorie $categorie): self
-    {
-        $this->categorie = $categorie;
 
-        return $this;
-    }
 
     public function getAnnee(): ?string
     {
@@ -309,11 +304,26 @@ class Produit
         return $this;
     }
 
-    /**
-     * @return Collection|Categorie[]
-     */
-    public function getCategorie(): Collection
+    public function __toString()
     {
+        return $this->getId().' '.$this->getNom();
+    }
+
+    /**
+     * @param Categorie $categorie
+     * @return $this
+     */
+    public function setCategorie(?Categorie $categorie): self
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * @return Categorie
+     */
+    public function getCategorie(): ?Categorie{
         return $this->categorie;
     }
 
