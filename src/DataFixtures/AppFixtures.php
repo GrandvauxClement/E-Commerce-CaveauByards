@@ -2,12 +2,14 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\AdresseLivraison;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Produit;
 use App\Entity\Categorie;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Validator\Constraints\Date;
 
 class AppFixtures extends Fixture
 {
@@ -22,7 +24,9 @@ class AppFixtures extends Fixture
         $admin = new User();
         $admin->setNom('admin');
         $admin->setPrenom('admin');
+        $admin->setCivilite('Mr');
         $admin->setRoles(['ROLE_ADMIN']);
+        $admin->setDateNaissance( new \DateTime('01/11/1997'));
         $admin->setEmail('admin@admin.com');
         $admin->setPassword(
             $this->passwordEncoder->encodePassword(
@@ -35,6 +39,40 @@ class AppFixtures extends Fixture
         $admin->setVille('Le Vernois');
         $admin->setIsVerified(true);
         $manager->persist($admin);
+        $manager->flush();
+
+        // Création d'un utilisateur Test
+        $userTest = new User();
+        $userTest->setNom('clement');
+        $userTest->setPrenom('Grandvaux');
+        $userTest->setCivilite('Mr');
+        $userTest->setDateNaissance( new \DateTime('06/12/2000'));
+        $userTest->setRoles(['ROLE_USER']);
+        $userTest->setEmail('clement.grandvaux@hotmail.com');
+        $userTest->setPassword(
+            $this->passwordEncoder->encodePassword(
+                $userTest,
+                'Admin123'
+            )
+        );
+        $userTest->setCodePostal('39210');
+        $userTest->setAdresse('354 chemin du pre chenole');
+        $userTest->setVille('Le Vernois');
+        $userTest->setIsVerified(true);
+        $adresseUser = new AdresseLivraison();
+        $adresseUser->setPrenom('simon');
+        $adresseUser->setNom('Grandvaux');
+        $adresseUser->setCivilte('Autre');
+        $adresseUser->setAdresse('37 avenue de vizile');
+        $adresseUser->setCodePostal('21000');
+        $adresseUser->setVille('Dijon');
+        $adresseUser->setInformationsSupp('2eme etage');
+        $adresseUser->setTelMobile('06 29 16 89 43');
+        $adresseUser->setTitre('Frangin');
+        $manager->persist($adresseUser);
+        $manager->flush();
+        $userTest->addAdresseLivraison($adresseUser);
+        $manager->persist($userTest);
         $manager->flush();
 
         // Definition de mes catégories

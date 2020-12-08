@@ -24,10 +24,11 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="table-main table-responsive">
+
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Images</th>
+                                    <th>Image</th>
                                     <th>Nom</th>
                                     <th>Prix</th>
                                     <th>Quantité</th>
@@ -36,7 +37,9 @@
                                 </tr>
                             </thead>
                             <tbody>
+                        {{ dump(productInCart) }}
                             {% for productDetailCart in productInCart %}
+                            <form method="post">
                                 <tr>
                                     <td class="thumbnail-img">
                                         <a href="#">
@@ -51,14 +54,23 @@
                                     <td class="price-pr">
                                         <p>{{ productDetailCart.product.prix |number_format(2, ',', '.')}} €</p>
                                     </td>
-                                    <td class="quantity-box"><input type="number" size="4" value="{{ productDetailCart.quantity }}" min="0" step="1" class="c-input-text qty text"></td>
+
+                                    <td class="quantity-box d-flex flex-column ">
+                                        <form method="post" >
+                                            <input type="number" name="quantity" size="4" value="{{ productDetailCart.quantity }}" min="0" step="1" class="form-control mt-2">
+                                            <input type="hidden" name="id" value="{{ productDetailCart.product.id }}">
+                                            <input class="btn btn-theme" type="submit" value="Modifier la quantité">
+                                        </form>
+                                    </td>
                                     <td class="total-pr">
                                         <p>{{productDetailCart.product.prix * productDetailCart.quantity }} €</p>
                                     </td>
                                     <td class="remove-pr">
+
                                         <a href="{{path('panier_remove',{'id':productDetailCart.product.id})}}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> </a>
                                     </td>
                                 </tr>
+                            </form>
                             {% endfor %}
                             </tbody>
                         </table>
@@ -77,37 +89,37 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-sm-6">
+                {#<div class="col-lg-6 col-sm-6">
                     <div class="update-box">
-                        <input value="Update Cart" type="submit">
+                        <input value="Valider les modifications" type="submit">
                     </div>
-                </div>
+                </div>#}
             </div>
 
             <div class="row my-5">
                 <div class="col-lg-8 col-sm-12"></div>
                 <div class="col-lg-4 col-sm-12">
                     <div class="order-box">
-                        <h3>Order summary</h3>
+                        <h3>Récapitulatif de la commande</h3>
                         <div class="d-flex">
-                            <h4>Sub Total</h4>
+                            <h4>Sous-Toal</h4>
                             <div class="ml-auto font-weight-bold"> {{totalPrix|number_format(2, ',', '.')}} €</div>
                         </div>
                         <div class="d-flex">
-                            <h4>Discount</h4>
+                            <h4>Remise</h4>
                             <div class="ml-auto font-weight-bold"> $ 40 </div>
                         </div>
                         <hr class="my-1">
                         <div class="d-flex">
-                            <h4>Coupon Discount</h4>
+                            <h4>Coupon de Remise</h4>
                             <div class="ml-auto font-weight-bold"> $ 10 </div>
                         </div>
                         <div class="d-flex">
-                            <h4>Tax</h4>
+                            <h4>TVA</h4>
                             <div class="ml-auto font-weight-bold"> $ 2 </div>
                         </div>
                         <div class="d-flex">
-                            <h4>Shipping Cost</h4>
+                            <h4>Frais de Livraison</h4>
                             <div class="ml-auto font-weight-bold"> Free </div>
                         </div>
                         <hr>
@@ -117,7 +129,7 @@
                         </div>
                         <hr> </div>
                 </div>
-                <div class="col-12 d-flex shopping-box"><a href="checkout.html" class="ml-auto btn hvr-hover">Checkout</a> </div>
+                <div class="col-12 d-flex shopping-box"><a href="{{ path('commander') }}" class="ml-auto btn hvr-hover">Commander</a> </div>
             </div>
 
         </div>

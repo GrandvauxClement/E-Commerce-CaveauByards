@@ -1865,6 +1865,17 @@
  .quantity-box input:focus{
      border-color: #7e5aa4;
 }
+ .quantity-box .btn-theme {
+    background: #010101;
+    color: #ffffff;
+    border: none;
+    border-radius: 0px;
+    font-size: 16px;
+    padding: 0px 20px;
+}
+.quantity-box .btn-theme:hover {
+    background: #7e5aa4;
+}
  .name-pr a{
      font-weight: 700;
      font-size: 18px;
@@ -2328,7 +2339,7 @@
      color: #ffffff;
 }
  .quantity-box input{
-     width: 100%;
+     width: 70%;
 }
  .price-box-bar{
      margin-bottom: 30px;

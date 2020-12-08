@@ -28,21 +28,25 @@ class PanierService
 
     public function getTotal($panierWithData){
         $total =0;
+
         foreach ($panierWithData as $item){
             $toalItem = $item['product']->getPrix() * $item['quantity'];
             $total += $toalItem;
         }
+
         return $total;
     }
 
-    public function add(int $id){
+    public function add(int $id, int $quantity){
         $panier = $this->session->get('panier',[]);
+
         if (!empty($panier[$id])){
-            $panier[$id]++;
+            $panier[$id] = $quantity;
         }
         else{
-            $panier[$id] = 1;
+            $panier[$id] = $quantity;
         }
+
         $this->session->set('panier', $panier);
     }
 

@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Categorie;
 use App\Entity\Produit;
+use App\Form\QuantityProductType;
 use App\Repository\CategorieRepository;
 use App\Repository\ProduitRepository;
 use App\Services\PanierService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -79,15 +81,24 @@ class DashboardController extends AbstractController
     /**
      * @Route("/{categorie}/{produit}", name="produitDetail", requirements={"produit":"\d+"})
      */
-    public function GetProduitDetail(ProduitRepository $produitRepository, Produit $produit ): Response
+    public function GetProduitDetail(ProduitRepository $produitRepository, Produit $produit, Request $request ): Response
     {
         $allProduit = $produitRepository->findAll();
+        $form =$this->createForm(QuantityProductType::class,['id'=>$produit->getId()]);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            var_dump($form->getData());
+
+            return $this->redirectToRoute('panier_add',['id'=>$produit->getId(),'quantity'=>$form->getData()['quantity']]);
+        }
+
         return $this->render('site_Front/detailProduit.html.twig', [
             'allProduits' => $allProduit,
             'produit'=> $produit,
             'categories'=>$this->allCategories,
             'productInCart'=>$this->panierWithData,
-            'totalPrix'=>$this->totalPrix
+            'totalPrix'=>$this->totalPrix,
+            'form'=>$form->createView()
         ]);
     }
 

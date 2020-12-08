@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -83,6 +85,16 @@ class User implements UserInterface
      * @ORM\Column(type="date")
      */
     private $dateNaissance;
+
+    /**
+     * @ORM\OneToMany(targetEntity=AdresseLivraison::class, mappedBy="user")
+     */
+    private $adresseLivraisons;
+
+    public function __construct()
+    {
+        $this->adresseLivraisons = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -254,6 +266,36 @@ class User implements UserInterface
     public function setDateNaissance(\DateTimeInterface $dateNaissance): self
     {
         $this->dateNaissance = $dateNaissance;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AdresseLivraison[]
+     */
+    public function getAdresseLivraisons(): Collection
+    {
+        return $this->adresseLivraisons;
+    }
+
+    public function addAdresseLivraison(AdresseLivraison $adresseLivraison): self
+    {
+        if (!$this->adresseLivraisons->contains($adresseLivraison)) {
+            $this->adresseLivraisons[] = $adresseLivraison;
+            $adresseLivraison->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdresseLivraison(AdresseLivraison $adresseLivraison): self
+    {
+        if ($this->adresseLivraisons->removeElement($adresseLivraison)) {
+            // set the owning side to null (unless already changed)
+            if ($adresseLivraison->getUser() === $this) {
+                $adresseLivraison->setUser(null);
+            }
+        }
 
         return $this;
     }

@@ -36,6 +36,18 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
+    /*public function getIdUserByUsername()
+    {
+        $query = $em->createQuery(
+            'SELECT p
+    FROM AppBundle:Product p
+    WHERE p.price > :price
+    ORDER BY p.price ASC'
+        )->setParameter('price', 19.99);
+
+        $products = $query->getResult();
+    }*/
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

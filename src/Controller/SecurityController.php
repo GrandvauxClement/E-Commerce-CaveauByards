@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\CategorieRepository;
+use App\Services\PanierService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,7 +14,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/login", name="app_login")
      */
-    public function login(AuthenticationUtils $authenticationUtils, CategorieRepository $categorieRepository): Response
+    public function login(AuthenticationUtils $authenticationUtils, CategorieRepository $categorieRepository, PanierService $panierService): Response
     {
         if ($this->getUser()){
             if ($this->getUser()->getRoles()[0] == 'ROLE_ADMIN') {
@@ -23,7 +24,8 @@ class SecurityController extends AbstractController
                 return $this->redirectToRoute('dashboard');
             }
          }
-
+        $panierWithData = $panierService->getDataPanier();
+        $totalPrice = $panierService->getTotal($panierWithData);
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
@@ -34,6 +36,8 @@ class SecurityController extends AbstractController
             'last_username' => $lastUsername,
             'error' => $error,
             'categories'=>$Allcategories,
+            'productInCart' => $panierWithData,
+            'totalPrix'=> $totalPrice,
             ]);
     }
 

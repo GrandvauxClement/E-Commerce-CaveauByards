@@ -1,5 +1,12 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+    <script>
+        $(document).ready(function(){
+            $("#quantityProduct").on("input", function(){
+                $("#quantityProductOutput").text($(this).val());
+            });
+        });
+    </script>
     <!-- Start Shop Detail  -->
     <div class="shop-detail-box-main">
         <div class="container">
@@ -15,18 +22,26 @@
                         <p>
                         <h4>Description:</h4>
                         <p>{{ produit.description}}</p>
+
                         <ul>
                             <li>
                                 <div class="form-group quantity-box">
-                                    <label class="control-label">Quantity</label>
-                                    <input class="form-control" value="0" min="0" max="20" type="number">
+                                   {# <label class="control-label">Quantity</label>
+                                    <input class="form-control"  min="0" max="20" type="number" id="quantityProduct">#}
+                                    {{ form_start(form) }}
+                                    {{ form_label(form.quantity) }}
+                                    {{ form_widget(form.quantity) }}
+                                    <input class="btn hvr-hover my-3" type="submit" value="Ajouter au panier">
+                                    {{ form_end(form) }}
+
                                 </div>
                             </li>
+
                             <li>
                                 <div class="price-box-bar">
                                     <div class="cart-and-bay-btn">
                                         <a class="btn hvr-hover my-3" data-fancybox-close="" href="#">Payer maintenant</a>
-                                        <a class="btn hvr-hover my-3" data-fancybox-close="" href="{{path('panier_add',{'id':produit.id})}}">Ajouter au panier</a>
+                                       {# <a class="btn hvr-hover my-3" data-fancybox-close="" type="submit" href="{{path('panier_add',{'id':produit.id})}}">Ajouter au panier</a>#}
                                     </div>
                                 </div>
                             </li>
@@ -39,13 +54,13 @@
                                 <a class="btn hvr-hover" href="#"><i class="fas fa-heart"></i> Ajouter aux favories</a>
                                 <a class="btn hvr-hover" href="#"><i class="fas fa-sync-alt"></i> Comparer le produit</a>
                             </div>
-                            <div class="share-bar">
+                           {# <div class="share-bar">
                                 <a class="btn hvr-hover" href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a>
                                 <a class="btn hvr-hover" href="#"><i class="fab fa-google-plus" aria-hidden="true"></i></a>
                                 <a class="btn hvr-hover" href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a>
                                 <a class="btn hvr-hover" href="#"><i class="fab fa-pinterest-p" aria-hidden="true"></i></a>
                                 <a class="btn hvr-hover" href="#"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
-                            </div>
+                            </div>#}
                         </div>
                     </div>
                 </div>
