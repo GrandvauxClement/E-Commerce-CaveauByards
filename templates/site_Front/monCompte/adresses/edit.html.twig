@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit AdresseLivraison{% endblock %}
+
+{% block body %}
+    <!-- Start All Title Box -->
+    <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Modifier votre Adresse</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('mes_adresses') }}">Mon Compte / Adresses</a></li>
+                        <li class="breadcrumb-item active">  Modifier </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End All Title Box -->
+    <div class="container py-5">
+
+    {{ include('site_Front/parts/adresse_livraison/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+
+    </div>
+{% endblock %}

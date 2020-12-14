@@ -80,7 +80,12 @@ class AdresseLivraison
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $civilte;
+    private $civilite;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $adressePrincipal;
 
     public function getId(): ?int
     {
@@ -231,14 +236,26 @@ class AdresseLivraison
         return $this;
     }
 
-    public function getCivilte(): ?string
+    public function getCivilite(): ?string
     {
-        return $this->civilte;
+        return $this->civilite;
     }
 
-    public function setCivilte(string $civilte): self
+    public function setCivilite(string $civilite): self
     {
-        $this->civilte = $civilte;
+        $this->civilite = $civilite;
+
+        return $this;
+    }
+
+    public function getAdressePrincipal(): ?bool
+    {
+        return $this->adressePrincipal;
+    }
+
+    public function setAdressePrincipal(bool $adressePrincipal): self
+    {
+        $this->adressePrincipal = $adressePrincipal;
 
         return $this;
     }

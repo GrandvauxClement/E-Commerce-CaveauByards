@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <!-- Start All Title Box -->
+    <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Ajouter une nouvelle adresse de livraison</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('mon_compte') }}">Mon Compte </a></li>
+                        <li class="breadcrumb-item active">Nouvelle Adresse </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End All Title Box -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+        {{ form_start(adressForm) }}
+
+            {{ form_widget(adressForm) }}
+
+        <button type="submit" class="ml-auto btn hvr-hover">Ajouter une nouvelle adresse</button>
+
+        {{ form_end(adressForm) }}
+        </div>
+
+    </div>
+{% endblock body %}

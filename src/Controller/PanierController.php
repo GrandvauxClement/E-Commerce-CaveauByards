@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\AdresseLivraison;
+use App\Form\AdresseLivraisonType;
 use App\Form\QuantityProductType;
 use App\Repository\AdresseLivraisonRepository;
 use App\Repository\CategorieRepository;
@@ -68,10 +70,24 @@ class PanierController extends AbstractController
     {
         $userUsername = $this->getUser()->getUsername();
         $userConnect = $userRepository->findBy(array('email'=> $userUsername));
+        $adresseLivraison = $adresseLivraisonRepository->findBy(['user'=>$userConnect[0]->getId()]);
         $allCategories = $categorieRepository->findAll();
         $panierWithData = $this->panierService->getDataPanier();
         $totalPrice = $this->panierService->getTotal($panierWithData);
-        $adresseLivraison = $adresseLivraisonRepository->findBy(['user'=>$userConnect[0]->getId()]);
+
+
+
+        $newAdress = new AdresseLivraison();
+        $newAdress->setUser($userConnect[0]);
+        $adressForm = $this->createForm(AdresseLivraisonType::class, $newAdress);
+        $adressForm->handleRequest($request);
+        if( $adressForm->isSubmitted() && $adressForm->isValid() ){
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($newAdress);
+            $entityManager->flush();
+            $this->redirectToRoute('commander');
+        }
 
 
         return $this->render('site_Front/panier/commande.html.twig', [
@@ -79,6 +95,7 @@ class PanierController extends AbstractController
             'totalPrix'=> $totalPrice,
             'categories'=>$allCategories,
             'adresseLivraison'=>$adresseLivraison,
+            'adressForm'=>$adressForm->createView()
         ]);
     }
 }

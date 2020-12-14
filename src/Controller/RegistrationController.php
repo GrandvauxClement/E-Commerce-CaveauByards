@@ -7,6 +7,7 @@ use App\Form\RegistrationFormType;
 use App\Repository\CategorieRepository;
 use App\Security\EmailVerifier;
 use App\Security\LoginFormAuthenticator;
+use App\Services\PanierService;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,11 +22,17 @@ class RegistrationController extends AbstractController
 {
     private $emailVerifier;
     private $Allcategories;
+    private $panierWithData = [];
+    private $totalPrix;
 
-    public function __construct(EmailVerifier $emailVerifier, CategorieRepository $categorieRepository)
+    public function __construct(EmailVerifier $emailVerifier, CategorieRepository $categorieRepository, PanierService $panierService)
     {
         $this->emailVerifier = $emailVerifier;
         $this->Allcategories = $categorieRepository->findAll();
+        $this->panierWithData = $panierService->getDataPanier();
+        $this->totalPrix = $panierService->getTotal($this->panierWithData);
+
+
     }
 
     /**
@@ -75,7 +82,9 @@ class RegistrationController extends AbstractController
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
-            'categories'=>$this->Allcategories
+            'categories'=>$this->Allcategories,
+            'productInCart'=>$this->panierWithData,
+            'totalPrix'=>$this->totalPrix
         ]);
     }
 

@@ -34,9 +34,6 @@ class AppFixtures extends Fixture
                 'Admin123'
             )
         );
-        $admin->setCodePostal('39210');
-        $admin->setAdresse('admin');
-        $admin->setVille('Le Vernois');
         $admin->setIsVerified(true);
         $manager->persist($admin);
         $manager->flush();
@@ -55,23 +52,35 @@ class AppFixtures extends Fixture
                 'Admin123'
             )
         );
-        $userTest->setCodePostal('39210');
-        $userTest->setAdresse('354 chemin du pre chenole');
-        $userTest->setVille('Le Vernois');
         $userTest->setIsVerified(true);
         $adresseUser = new AdresseLivraison();
         $adresseUser->setPrenom('simon');
         $adresseUser->setNom('Grandvaux');
-        $adresseUser->setCivilte('Autre');
+        $adresseUser->setCivilite('Autre');
         $adresseUser->setAdresse('37 avenue de vizile');
         $adresseUser->setCodePostal('21000');
         $adresseUser->setVille('Dijon');
         $adresseUser->setInformationsSupp('2eme etage');
         $adresseUser->setTelMobile('06 29 16 89 43');
         $adresseUser->setTitre('Frangin');
+        $adresseUser->setAdressePrincipal(true);
         $manager->persist($adresseUser);
-        $manager->flush();
+
         $userTest->addAdresseLivraison($adresseUser);
+        $adresseUserBis = new AdresseLivraison();
+        $adresseUserBis->setPrenom('test');
+        $adresseUserBis->setNom('Testeur');
+        $adresseUserBis->setCivilite('Mr.');
+        $adresseUserBis->setAdresse('34 chemin d\'onigashima');
+        $adresseUserBis->setCodePostal('66666');
+        $adresseUserBis->setVille('WanoKuni');
+        $adresseUserBis->setInformationsSupp('Attention aux dragons');
+        $adresseUserBis->setTelMobile('06 29 16 89 43');
+        $adresseUserBis->setTitre('Kaido');
+        $adresseUserBis->setAdressePrincipal(false);
+        $manager->persist($adresseUserBis);
+
+        $userTest->addAdresseLivraison($adresseUserBis);
         $manager->persist($userTest);
         $manager->flush();
 

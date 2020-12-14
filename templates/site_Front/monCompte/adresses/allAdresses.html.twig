@@ -1,0 +1,62 @@
+{% extends'base.html.twig' %}
+{% block body %}
+    <!-- Start All Title Box -->
+    <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Gérer vos Adresses</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('mon_compte') }}">Mon Compte </a></li>
+                        <li class="breadcrumb-item active"> Vos Adresses </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End All Title Box -->
+
+    <div class="container my-5">
+        <div class="row justify-content-around pr-3">
+            <div class="card" style="width: 20rem;">
+                <div class="card-body">
+                    <h3 class="font-weight-bold">Ajouter une nouvelle adresse</h3>
+                    <div class="service-icon text-center">
+                        <a href="{{path('addNewAdresseLivraison')}}"><i class="fa fa-plus "></i> </a>
+                    </div>
+
+                </div>
+            </div>
+        {% for adresse in allAdresses %}
+            <div class="card" style="width: 20rem;">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        {% if adresse.civilite is same as 'Autre' %}
+                           {{ adresse.nom|upper }} {{ adresse.prenom }}
+                        {% else %}
+                            {{ adresse.civilite }} {{ adresse.nom|upper }} {{ adresse.prenom }}
+                        {% endif %}
+                    </h5>
+                    {% if adresse.adressePrincipal %}
+                        <h6 class="card-subtitle mb-2 text-danger">Adresse principal</h6>
+                    {% else %}
+                        <h6 class="card-subtitle mb-2 text-muted">Adresse secondaire</h6>
+                    {% endif %}
+                    <p class="card-text">{{ adresse.adresse}} <br>
+                        {% if adresse.adresseSuite %}
+                            {{ adresse.adresseSuite }} <br>
+                        {% endif %}
+                            {{ adresse.codePostal }} {{ adresse.ville }}</p>
+                    <a href="{{path('adresse_livraison_edit',{'id':adresse.id})}}" class="card-link btn btn-primary">Modifier </a>
+                    <form method="post" action="{{ path('adresse_livraison_delete', {'id': adresse.id}) }}" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cette adresse?');">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ adresse.id) }}">
+                        <button class="card-link btn btn-danger">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
