@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\AdresseLivraison;
+use App\Entity\Order;
+use App\Entity\OrderDetails;
 use App\Form\AdresseLivraisonType;
 use App\Form\QuantityProductType;
 use App\Repository\AdresseLivraisonRepository;
@@ -17,10 +19,19 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PanierController extends AbstractController
 {
-    protected $panierService;
-    public function __construct(PanierService $panierService)
+    private $panierService;
+    private  $allCategories;
+    private $panierWithData;
+    private $totalPrice;
+
+    public function __construct(PanierService $panierService, CategorieRepository $categorieRepository)
     {
+
         $this->panierService = $panierService;
+
+        $this->allCategories = $categorieRepository->findAll();
+        $this->panierWithData = $this->panierService->getDataPanier();
+        $this->totalPrice = $this->panierService->getTotal($this->panierWithData);
     }
 
     /**
@@ -28,18 +39,13 @@ class PanierController extends AbstractController
      */
     public function index( CategorieRepository $categorieRepository, Request $request): Response
     {
-        $allCategories = $categorieRepository->findAll();
-        $panierWithData = $this->panierService->getDataPanier();
-        $totalPrice = $this->panierService->getTotal($panierWithData);
-       /* $form =$this->createForm(QuantityProductType::class,['id'=>$produit->getId()]);
-        $form->handleRequest($request);*/
         if($request->getMethod()=="POST"){
             return $this->redirectToRoute('panier_add',['id'=>$_POST['id'],'quantity'=>$_POST['quantity']]);
         }
         return $this->render('site_Front/panier/index.html.twig', [
-            'productInCart' => $panierWithData,
-            'totalPrix'=> $totalPrice,
-            'categories'=>$allCategories
+            'productInCart' => $this->panierWithData,
+            'totalPrix'=> $this->totalPrice,
+            'categories'=>$this->allCategories
         ]);
     }
 
@@ -65,37 +71,52 @@ class PanierController extends AbstractController
     /**
      * @Route("/commande", name="commander")
      */
-    public function Commande( CategorieRepository $categorieRepository, Request $request,
-                              AdresseLivraisonRepository $adresseLivraisonRepository, UserRepository $userRepository): Response
+    public function Commande(  Request $request, UserRepository $userRepository, AdresseLivraisonRepository $adresseLivraisonRepository): Response
     {
         $userUsername = $this->getUser()->getUsername();
         $userConnect = $userRepository->findBy(array('email'=> $userUsername));
         $adresseLivraison = $adresseLivraisonRepository->findBy(['user'=>$userConnect[0]->getId()]);
-        $allCategories = $categorieRepository->findAll();
-        $panierWithData = $this->panierService->getDataPanier();
-        $totalPrice = $this->panierService->getTotal($panierWithData);
 
-
-
-        $newAdress = new AdresseLivraison();
-        $newAdress->setUser($userConnect[0]);
-        $adressForm = $this->createForm(AdresseLivraisonType::class, $newAdress);
-        $adressForm->handleRequest($request);
-        if( $adressForm->isSubmitted() && $adressForm->isValid() ){
-
+        if( $request->getMethod() == 'POST' ){
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($newAdress);
+            $order = new Order();
+            $order->setAdresseLivraison($adresseLivraisonRepository->find($adresseLivraison[$_POST['adresse']-1]->getId()));
+            $order->setPrix($this->totalPrice);
+            $order->setCreationDate(new \DateTime());
+            $order->setStatus('En cours de payement');
+            $order->setUser($userConnect[0]);
+            $entityManager->persist($order);
             $entityManager->flush();
-            $this->redirectToRoute('commander');
+            foreach ($this->panierWithData as $dataDetail){
+
+                $orderDetail = new OrderDetails();
+                $orderDetail->setQuantity($dataDetail['quantity']);
+                $orderDetail->setProduit($dataDetail['product']);
+                $orderDetail->setCommande($order);
+                $entityManager->persist($orderDetail);
+                $entityManager->flush();
+            }
+            return $this->redirectToRoute('interface_payment');
         }
 
 
         return $this->render('site_Front/panier/commande.html.twig', [
-            'productInCart' => $panierWithData,
-            'totalPrix'=> $totalPrice,
-            'categories'=>$allCategories,
+            'productInCart' => $this->panierWithData,
+            'totalPrix'=> $this->totalPrice,
+            'categories'=>$this->allCategories,
             'adresseLivraison'=>$adresseLivraison,
-            'adressForm'=>$adressForm->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/commande/payment", name="interface_payment")
+     */
+
+    public function interfacePayment (){
+        return $this->render('site_Front/panier/inerfacePayment.html.twig', [
+            'productInCart' => $this->panierWithData,
+            'totalPrix'=> $this->totalPrice,
+            'categories'=>$this->allCategories,
         ]);
     }
 }

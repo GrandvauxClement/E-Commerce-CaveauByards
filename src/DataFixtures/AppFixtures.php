@@ -3,6 +3,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\AdresseLivraison;
+use App\Entity\Order;
+use App\Entity\OrderDetails;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -620,7 +622,7 @@ class AppFixtures extends Fixture
         $product->setVolumeEnCl(50);
         $product->setDegre('50% Vol.');
         $manager->persist($product);
-        $manager->flush();
+
 
         $product = new Produit();
         $product->setNom('VERNOISINE Vin de liqueur rouge');
@@ -640,6 +642,7 @@ class AppFixtures extends Fixture
         $product->setVolumeEnCl(75);
         $product->setDegre('12% Vol.');
         $manager->persist($product);
+
         $manager->flush();
     }
 }

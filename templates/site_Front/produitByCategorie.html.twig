@@ -182,9 +182,11 @@
                                     <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
                                         <div class="products-single fix">
                                             <div class="box-img-hover">
+                                                {% if produit.reduction %}
                                                 <div class="type-lb">
-                                                    <p class="sale">Sale</p>
+                                                    <p class="sale">- {{produit.reduction}} %</p>
                                                 </div>
+                                                {% endif %}
                                                 <img src="{{ asset('image/produit/'~produit.image~'.jpg') }}" class="img-fluid" alt="Image Produit">
                                                 <div class="mask-icon">
                                                     <ul>
@@ -195,9 +197,11 @@
                                                     <a class="cart" href="{{path('panier_add',{'id':produit.id,'quantity':1})}}">Ajouter au Panier</a>
                                                 </div>
                                             </div>
-                                            <div class="why-text">
+                                            <div class="why-text single-product-details">
                                                 <h4>{{ produit.nom }}</h4>
-                                                <h5> {{ produit.prix |number_format(2, ',', '.')}} €</h5>
+                                                <h5 class=""> <del>{{produit.prix |number_format(2, ',', '.')}} €</del>
+                                                    {{(produit.prix - produit.prix*produit.reduction/100)|number_format(2, ',', '.')}} €
+                                                </h5>
                                             </div>
                                         </div>
                                     </div>

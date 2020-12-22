@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ProduitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -103,6 +104,21 @@ class Produit
      * @ORM\Column(type="string", length=255)
      */
     private $image;
+
+    /**
+     * @ORM\OneToMany(targetEntity=OrderDetails::class, mappedBy="produit", orphanRemoval=true)
+     */
+    private $orderDetails;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $reduction;
+
+    public function __construct()
+    {
+        $this->orderDetails = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -325,6 +341,48 @@ class Produit
      */
     public function getCategorie(): ?Categorie{
         return $this->categorie;
+    }
+
+    /**
+     * @return Collection|OrderDetails[]
+     */
+    public function getOrderDetails(): Collection
+    {
+        return $this->orderDetails;
+    }
+
+    public function addOrderDetail(OrderDetails $orderDetail): self
+    {
+        if (!$this->orderDetails->contains($orderDetail)) {
+            $this->orderDetails[] = $orderDetail;
+            $orderDetail->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderDetail(OrderDetails $orderDetail): self
+    {
+        if ($this->orderDetails->removeElement($orderDetail)) {
+            // set the owning side to null (unless already changed)
+            if ($orderDetail->getProduit() === $this) {
+                $orderDetail->setProduit(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getReduction(): ?int
+    {
+        return $this->reduction;
+    }
+
+    public function setReduction(?int $reduction): self
+    {
+        $this->reduction = $reduction;
+
+        return $this;
     }
 
 

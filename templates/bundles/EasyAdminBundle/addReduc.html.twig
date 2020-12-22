@@ -1,0 +1,20 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block page_title 'Ajouter une réduction sur tous les produits' %}
+
+{% block page_content %}
+<div class="container">
+
+    <p>
+        <strong>Choisissez la réduction à appliquer sur tous vos produits, si vous voulez modifier seulement un produit, allez sur l'onglet Mes produits et éditer le produit en question</strong>
+
+    </p>
+    <form method="post">
+        <label for="pourcent"> Indiquer la valeur du pourcentage a appliquer sur tous les produits</label>
+        <input id="pourcent" name="pourcent" type="number" class="form-control w-auto" value="0" min="0" max="100">
+        <button type="submit" class="btn btn-success" onsubmit="return confirm('Etes-vous sur de vouloir modifier les réductions des produits?');"> Valider</button>
+    </form>
+
+</div>
+{% endblock %}

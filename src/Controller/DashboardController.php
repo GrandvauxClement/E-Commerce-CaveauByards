@@ -47,6 +47,8 @@ class DashboardController extends AbstractController
     {
         return $this->render('site_Front/contact.html.twig', [
             'categories'=>$this->allCategories,
+            'productInCart'=>$this->panierWithData,
+            'totalPrix'=>$this->totalPrix
         ]);
     }
 

@@ -18,7 +18,7 @@
 
     <div class="container my-5">
         <div class="row justify-content-around pr-3">
-            <div class="card" style="width: 20rem;">
+            <div class="card mt-5" style="width: 20rem;">
                 <div class="card-body">
                     <h3 class="font-weight-bold">Ajouter une nouvelle adresse</h3>
                     <div class="service-icon text-center">
@@ -28,7 +28,7 @@
                 </div>
             </div>
         {% for adresse in allAdresses %}
-            <div class="card" style="width: 20rem;">
+            <div class="card mt-5" style="width: 20rem;">
                 <div class="card-body">
                     <h5 class="card-title">
                         {% if adresse.civilite is same as 'Autre' %}
@@ -38,21 +38,30 @@
                         {% endif %}
                     </h5>
                     {% if adresse.adressePrincipal %}
-                        <h6 class="card-subtitle mb-2 text-danger">Adresse principal</h6>
+                        <h6 class="card-subtitle text-danger">Adresse principal</h6>
                     {% else %}
-                        <h6 class="card-subtitle mb-2 text-muted">Adresse secondaire</h6>
+                        <h6 class="card-subtitle text-muted">Adresse secondaire</h6>
                     {% endif %}
                     <p class="card-text">{{ adresse.adresse}} <br>
                         {% if adresse.adresseSuite %}
                             {{ adresse.adresseSuite }} <br>
                         {% endif %}
-                            {{ adresse.codePostal }} {{ adresse.ville }}</p>
-                    <a href="{{path('adresse_livraison_edit',{'id':adresse.id})}}" class="card-link btn btn-primary">Modifier </a>
-                    <form method="post" action="{{ path('adresse_livraison_delete', {'id': adresse.id}) }}" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cette adresse?');">
-                        <input type="hidden" name="_method" value="DELETE">
-                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ adresse.id) }}">
-                        <button class="card-link btn btn-danger">Supprimer</button>
-                    </form>
+                            {{ adresse.codePostal }} {{ adresse.ville }} <br>
+                        {% if adresse.telMobile %}
+                             Numéro de portable : {{ adresse.telMobile }}<br>
+                        {% endif %}
+                    {% if adresse.telFix %}
+                        Numéro de Fixe : {{ adresse.telFix }}
+                    {% endif %}
+                    </p>
+                    <div class="row justify-content-around mt-3">
+                        <a href="{{path('adresse_livraison_edit',{'id':adresse.id})}}" class="card-link btn btn-primary">Modifier </a>
+                        <form method="post" action="{{ path('adresse_livraison_delete', {'id': adresse.id}) }}" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cette adresse?');">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ adresse.id) }}">
+                            <button class="card-link btn btn-danger">Supprimer</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         {% endfor %}

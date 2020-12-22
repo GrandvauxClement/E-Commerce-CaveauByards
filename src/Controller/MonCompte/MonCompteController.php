@@ -4,6 +4,7 @@ namespace App\Controller\MonCompte;
 
 use App\Entity\AdresseLivraison;
 use App\Form\AdresseLivraisonType;
+use App\Form\RegistrationFormType;
 use App\Repository\AdresseLivraisonRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\UserRepository;
@@ -46,13 +47,36 @@ class MonCompteController extends AbstractController
     /**
      * @Route("/moncompte/infoperso", name="mes_infos_perso")
      */
-    public function GererInfoPerso(): Response
+    public function GererInfoPerso(Request $request): Response
     {
-        return $this->render('site_Front/monCompte/infoPerso.html.twig', [
-            'categories'=>$this->AllCategories,
-            'productInCart' => $this->panierWithData,
-            'totalPrix'=> $this->totalPrice,
+        $userUsername = $this->getUser()->getUsername();
+        $userConnect = $this->userRepository->findBy(array('email'=> $userUsername));
 
+        $form = $this->createForm(RegistrationFormType::class, $userConnect[0]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // encode the plain password
+            $user->setPassword(
+                $passwordEncoder->encodePassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+            $user->setRoles(['ROLE_USER']);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+
+        }
+
+        return $this->render('site_Front/monCompte/infoPerso.html.twig', [
+            'registrationForm' => $form->createView(),
+            'categories'=>$this->AllCategories,
+            'productInCart'=>$this->panierWithData,
+            'totalPrix'=>$this->totalPrice
         ]);
     }
 

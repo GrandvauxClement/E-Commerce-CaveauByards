@@ -259,4 +259,8 @@ class AdresseLivraison
 
         return $this;
     }
+    public function __toString()
+    {
+       return $this->adresse.' '.$this->codePostal.' '.$this->Ville;
+    }
 }

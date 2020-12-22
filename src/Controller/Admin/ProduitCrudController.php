@@ -25,7 +25,7 @@ class ProduitCrudController extends AbstractCrudController
         return [
             IntegerField::new('id','ID')->onlyOnIndex(),
             TextField::new('nom'),
-            NumberField::new('prix'),
+            NumberField::new('prix')->setLabel('Prix en €'),
             TextField::new('reference')->onlyOnForms(),
             TextField::new('etat')->onlyOnForms(),
             TextEditorField::new('description')->onlyOnForms(),

@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <!-- Start All Title Box -->
+    <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Vos anciennes commandes</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('mon_compte') }}">Mon Compte </a></li>
+                        <li class="breadcrumb-item active"> Vos Commandes </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End All Title Box -->
+    <div class="container mt-5">
+            {% for productOrder in Orders %}
+        <div class="row mb-5">
+            <div class="row fond-violet text-light justify-content-around w-100">
+                <div class="col"> COMMANDE EFFECTUÉ LE <br> {{ productOrder.creationDate|date("m/d/Y") }}</div>
+                <div class="col"> TOTAL <br> {{ productOrder.prix |number_format(2, ',', '.')}} €</div>
+                <div class="col"> LIVRAISON À <br> {{ productOrder.adresseLivraison.nom}} {{ productOrder.adresseLivraison.prenom}}</div>
+                <div class="col"> N° DE COMMANDE <br> {{ productOrder.id }}</div>
+            </div>
+
+            <div class="row w-100 border border-secondary rounded ">
+                <div class="col-8 flex-column ">
+                {% for value in ordersDetail[productOrder.id] %}
+                            <div class="row align-items-center border-top">
+                                <div class="col-3">
+                                    <img class="img-fluid" src="{{ asset('image/produit/'~value.produit.image~'.jpg') }}"
+                                         alt="image du produit">
+                                </div>
+                                <div class="col d-flex flex-column justify-content-center">
+                                    <div>
+                                        <span class="font-weight-bold"> x{{ value.quantity }} </span> {{ value.produit.nom }}
+                                    </div>
+                                    <div>
+                                        <span class="color-violet">{{ value.produit.prix }} €</span>
+                                    </div>
+                                    <div>
+                                        <span class="color-violet font-weight-bold"> Total : {{ value.produit.prix * value.quantity }} €</span>
+                                    </div>
+                                </div>
+                            </div>
+                {% endfor %}
+                </div>
+                <div class="col border-left">
+                        <a class="btn btn-success mt-5 mb-3" href="{{ path('commande_add_panier',{'id':productOrder.id}) }}">Ajouter au panier cette commande</a>
+                        <button class="btn btn-success my-3">Ici prochaine action</button>
+                        <button class="btn btn-success my-3">Ici prochaine action</button>
+                </div>
+
+            </div>
+        </div>
+             {% endfor%}
+
+    </div>
+
+
+{% endblock %}

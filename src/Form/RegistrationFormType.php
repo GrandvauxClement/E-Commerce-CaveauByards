@@ -81,27 +81,6 @@ class RegistrationFormType extends AbstractType
             ->add('prenom', TextType::class,[
                 'required'=>true,
             ] )
-            ->add('adresse', TextType::class,[
-                'required'=>true,
-                'attr' =>
-                    [
-                        'class' => 'form-control'
-                    ]
-            ])
-            ->add('codePostal', TextType::class,[
-                'required'=>true,
-                'attr' =>
-                    [
-                        'class' => 'form-control'
-                    ]
-            ])
-            ->add('ville', TextType::class,[
-                'required'=>true,
-                'attr' =>
-                    [
-                        'class' => 'form-control'
-                    ]
-            ])
            ->add('dateNaissance', DateType::class,[
                 // adds a class that can be selected in JavaScript
                'widget' => 'single_text',
