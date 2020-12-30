@@ -1,0 +1,131 @@
+body {
+    margin-right: 10%;
+    width: 80%;
+    margin-left: 10%;
+}
+.netAPayer{
+    border: black 2px solid;
+    border-radius: 10px;
+    background-color: #a4a9aa;
+    width: 18em;
+}
+.netAPayer h3{
+    text-align: center;
+}
+
+.nomClient{
+    margin-left: 60%;
+    font-weight: bold;
+}
+.tableProduit {
+    border: medium solid #000000;
+    width: 100%;
+    border-collapse: collapse;
+}
+.articleBis{
+    margin-top: 3em;
+    width: 100%;
+}
+.tableTVA{
+    border: medium solid #000000;
+    border-collapse: collapse;
+}
+th{
+    background-color: #a4a9aa;
+    border: black 2px solid;
+}
+tbody{
+    border: black 2px solid;
+}
+
+td {
+    border-left: black 1px solid;
+    min-width: 1em;
+    max-width: 8em;
+    width: auto;
+}
+.bas-facture{
+    display:inline-block;
+    width: 49%;
+    /*vertical-align: auto;*/
+}
+.textSouligne{
+    text-decoration: black underline ;
+}
+.contenueMontant{
+    height: 2em;
+    text-align: right;
+}
+.contenueMontant span{
+    font-weight: bold;
+}
+.marginMontant{
+    margin-bottom: 1em;
+}
+.incontournable img {
+    margin-left: 40%;
+    width: 10em;
+}
+/*.articleBis:after {
+    clear: both;
+    content: "";
+    display: table;
+}*/
+footer{
+    position: relative;
+    top: 1em;
+}
+footer h5 {
+    text-align: center;
+}
+footer ul li {
+    display:inline-block;
+    vertical-align: middle;
+    list-style-position: outside;
+    list-style-type: disc;
+    margin-right: 1em;
+    text-align: left;
+    white-space: nowrap;
+}
+.listeVin{
+    display: list-item;
+}
+.cremantjura{
+    color: #aa9c7a;
+}
+.vinblanc{
+    color: #c6bfa7;
+}
+.vinrouges{
+    color: #e45c5e;
+}
+.macvin{
+    color: #e5a170;
+}
+.vinDePaille{
+    color: #ca826b;
+}
+.vinJaune{
+    color: #bc9a6c;
+}
+.text-discret{
+    font-weight: lighter;
+    font-size: xx-small;
+}
+
+/*
+@media print {
+    * {
+        -webkit-print-color-adjust: exact;
+    }
+
+    html {
+        background: none;
+        padding: 0;
+    }
+
+    body {
+        box-shadow: none;
+        margin: 0;
+    }
+}*/

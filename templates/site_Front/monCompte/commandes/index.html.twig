@@ -50,8 +50,8 @@
                 </div>
                 <div class="col border-left">
                         <a class="btn btn-success mt-5 mb-3" href="{{ path('commande_add_panier',{'id':productOrder.id}) }}">Ajouter au panier cette commande</a>
-                        <button class="btn btn-success my-3">Ici prochaine action</button>
-                        <button class="btn btn-success my-3">Ici prochaine action</button>
+                        <a class="btn btn-success my-3" href="{{ path('facturePdf',{'id':productOrder.id}) }}">Voir la facture</a>
+                        <a class="btn btn-danger my-3" href="#">Je suis le super generateur de pdf</a>
                 </div>
 
             </div>

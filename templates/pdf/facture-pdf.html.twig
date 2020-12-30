@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}
+        <link href="{{ absolute_url(asset('css/pdf.css')) }}" rel="stylesheet" type="text/css">
+    {% endblock %}
+
+</head>
+<body class="container">
+{% block body %}
+    <header>
+        <div>
+            <img src="{{ absolute_url(asset('image/logo/logo_Caveau.jpg')) }}" alt="logo caveau">
+        </div>
+        <div class="nomClient">
+            <h3>{{ order.adresseLivraison.nom }} {{ order.adresseLivraison.prenom }}<br>
+                {{ order.adresseLivraison.adresse }}<br>
+                {{ order.adresseLivraison.codePostal }} {{ order.adresseLivraison.ville }}
+            </h3>
+        </div>
+    </header>
+    <article>
+        <p> Facture N° {{ order.id }} du {{ order.creationDate|date("d/m/Y") }}</p>
+        <table class="tableProduit">
+            <thead>
+            <tr>
+                <th> Qté unit</th>
+                <th> Désignation</th>
+                <th> P.u T.T.C.</th>
+                <th></th>
+                <th></th>
+                <th>Montant T.T.C</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for value in orderDetail %}
+                <tr>
+                    <td> {{ value.quantity }}</td>
+                    <td> {{ value.produit.nom }}</td>
+                    <td> {{ value.produit.prix }} </td>
+                    <td></td>
+                    <td></td>
+                    <td><span>{{ (value.quantity*value.produit.prix) }}</span></td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </article>
+    <div class="articleBis">
+        <div class="bas-facture">
+                <table class="tableTVA">
+                    <thead>
+                        <tr>
+                            <th>Taux</th>
+                            <th>Base H.T.</th>
+                            <th>Montant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>20.00</td>
+                        <td>{{ (order.prix) }}</td>
+                        <td>{{ order.prix*20/100 }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            <h3 class="textSouligne">Date d'échéance : {{ order.creationDate|date }}</h3>
+            <p class="text-discret">RCS Lons-Le-Saunier 778 431 296 - TVA FR82 778 431 296- APE 1102B <br>
+                SIRET 77843129600012- SCA au capital de 64768.55€<br>
+                IBAN FR76 1080 7000 2042 0210 114 612 BIC:CCBPFRPPDJN
+            </p>
+        </div>
+        <div class="bas-facture">
+            <div class="contenueMontant marginMontant">
+                <p>Total H.T. {{ order.prix }}</p>
+            </div>
+            <div class="contenueMontant">
+                <p><span> Net H.T.</span> {{ order.prix }}</p>
+            </div>
+            <div class="contenueMontant">
+                <p>T.V.A {{ order.prix*20/100 }}</p>
+            </div>
+            <div class="contenueMontant">
+                <p><span>Total T.T.C</span> {{ order.prix + order.prix*20/100 }}</p>
+            </div>
+            <div class="netAPayer">
+                <h3>Net à payer {{ order.prix + order.prix*20/100 }}</h3>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="incontournable">
+            <img src="{{ absolute_url(asset('image/logo/incontournable.png')) }}">
+        </div>
+        <ul>
+            <li class="cremantjura"><span class="listeVin"> Crémant du Jura</span></li>
+            <li class="vinblanc"><span class="listeVin">Vins blancs</span></li>
+            <li class="vinrouges"><span class="listeVin">Vin rouges</span></li>
+            <li class="macvin"><span class="listeVin">Macvin</span></li>
+            <li class="vinDePaille"><span class="listeVin">Vin de paille</span></li>
+            <li class="vinJaune"><span class="listeVin">Vin jaune</span></li>
+        </ul>
+        <h5>39210 Le Vernois - Tél 0384 25 33 52 - Fax 03 84 25 38 02 - info@caveau-des-byards.fr -
+            www.caveau-byards.fr</h5>
+        <p class="text-discret"> N°EVV: 39 386 573 3K - TVA FR 827 784 312 96 00012 - Domiciliation bancaire BPBFC
+            Blettrans N°42021011426 N° d'agrément 39.425</p>
+    </footer>
+
+{% endblock %}
+</body>
+
+{% block javascripts %}
+{% endblock %}
+
+</html>

@@ -73,4 +73,6 @@ class CommandeController extends AbstractController
 
         return $this->redirectToRoute('panier');
     }
+
+
 }
